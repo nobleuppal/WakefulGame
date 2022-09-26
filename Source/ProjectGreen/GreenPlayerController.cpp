@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+  // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GreenPlayerController.h"
 #include "Blueprint/UserWidget.h"
@@ -12,8 +12,5 @@ void AGreenPlayerController::BeginPlay()
 		HUDOverlay = CreateWidget<UUserWidget>(this, HUDOverlayAsset);
 	}
 
-	HUDOverlay->AddToViewport();
-	HUDOverlay->SetVisibility(ESlateVisibility::Visible);
-
-	
+	HUDOverlay->AddToViewport();	
 }

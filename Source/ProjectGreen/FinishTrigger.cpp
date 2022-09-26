@@ -26,4 +26,4 @@ void AFinishTrigger::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 	
 		//UE_LOG(LogTemp, Warning, TEXT("Finished!!!!"));
 	}
-}
+} 
