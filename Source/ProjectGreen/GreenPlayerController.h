@@ -25,8 +25,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 	UUserWidget* HUDOverlay;
 
+	void SetFinishHUD();
+
 protected:
 
 	virtual void BeginPlay() override;
+
+	void SetHUD();
+
 
 };

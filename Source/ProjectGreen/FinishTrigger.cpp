@@ -3,6 +3,10 @@
 
 #include "FinishTrigger.h"
 #include "Engine/Engine.h"
+#include "GreenPlayerController.h"
+#include "Blueprint/WidgetTree.h"
+#include "Kismet/GameplayStatics.h"
+
 
 
 AFinishTrigger::AFinishTrigger()
@@ -21,9 +25,10 @@ void AFinishTrigger::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (OtherActor && (OtherActor != this))
 	{
-		
-		GEngine->AddOnScreenDebugMessage(0, 9.0f, FColor::Emerald, FString(TEXT("FINISH!!!!!!")));
-	
-		//UE_LOG(LogTemp, Warning, TEXT("Finished!!!!"));
+		PlayerPtr = Cast<AGreenPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+
+		if (PlayerPtr) {
+			PlayerPtr->SetFinishHUD();
+		}
 	}
 } 

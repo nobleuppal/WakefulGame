@@ -18,6 +18,8 @@ public:
 
 	AFinishTrigger();
 
+	class AGreenPlayerController* PlayerPtr;
+
 protected:
 
 	virtual void BeginPlay() override;
