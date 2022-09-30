@@ -3,12 +3,12 @@
 #include "GreenPlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetTree.h"
+#include "Kismet/GameplayStatics.h"
 
 
 void AGreenPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
 	SetHUD();
 }
 
@@ -22,11 +22,14 @@ void AGreenPlayerController::SetHUD()
 
 	HUDOverlay->AddToViewport();
 	HUDOverlay->WidgetTree->FindWidget("Finish")->SetVisibility(ESlateVisibility::Hidden);
-
+	HUDOverlay->WidgetTree->FindWidget("Restart_Button")->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void AGreenPlayerController::SetFinishHUD()
 {
 	HUDOverlay->WidgetTree->FindWidget("Crosshair")->SetVisibility(ESlateVisibility::Hidden);
 	HUDOverlay->WidgetTree->FindWidget("Finish")->SetVisibility(ESlateVisibility::Visible);
+
+
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 }

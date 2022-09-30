@@ -84,10 +84,6 @@ AMainCharacter::AMainCharacter()
 	Wallnumber= 0;
 
 	LockCursor = CreateDefaultSubobject<UWidgetComponent>(TEXT("LockCursor"));
-
-
-	
-
 }
 
 // Called when the game starts or when spawned
@@ -127,7 +123,7 @@ void AMainCharacter::Tick(float DeltaTime)
 	if (GetActorLocation().Z < -1700.0f)
 	{
 		GEngine->AddOnScreenDebugMessage(0, 9.0f, FColor::Emerald, FString(TEXT("You Lose!!!!!!")));
-		Destroy();
+		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 	}
 
 }
@@ -155,9 +151,6 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("DeathBeam", IE_Released, this, &AMainCharacter::LMBUp);
 
 	PlayerInputComponent->BindAction("LockOn", IE_Pressed, this, &AMainCharacter::LDown);
-	PlayerInputComponent->BindAction("LockOn", IE_Released, this, &AMainCharacter::LUp);
-
-
 }
 
 
@@ -406,7 +399,7 @@ void AMainCharacter::SetToNearestTarget(TArray<AWalls*> WallsinRange, int32 Wall
 {
 	FRotator NewRotation;
 	
-	//UE_LOG(LogTemp, Warning, TEXT("Location: %s"), *GetActorLocation().ToString());
+
 	UE_LOG(LogTemp, Warning, TEXT("Wallnumber: %d"), Wallnumber);
 
 	if (WallsinRange.Num() != 0)
@@ -414,9 +407,7 @@ void AMainCharacter::SetToNearestTarget(TArray<AWalls*> WallsinRange, int32 Wall
 		NewRotation = UKismetMathLibrary::FindLookAtRotation(this->GetActorLocation(), WallsinRange.Last(Wallnumber)->GetActorLocation());
 		Controller->SetControlRotation(NewRotation);
 	}
-	//UE_LOG(LogTemp, Warning, TEXT("Rotation: %s"), *NewRotation.Vector().ToString());
 
-	
 }
 
 
@@ -434,19 +425,14 @@ void AMainCharacter::LDown()
 	}
 }
 
-void AMainCharacter::LUp()
-{
-	
-	//UE_LOG(LogTemp, Warning, TEXT("Wallnumber: %d"), Wallnumber);
 
-}
 
 void AMainCharacter::CalcClose()
 {
 	Wallnumber = 0;
 	WallArrClose.Empty();
 	float NewClosest = MaxTargetDist;
-	//UE_LOG(LogTemp, Warning, TEXT("Array Size: %d"), WallArr.Num());
+
 	for (int32 i = 0; i < WallArr.Num(); i++)
 	{
 		Wall = WallArr.Last(i);
@@ -456,7 +442,6 @@ void AMainCharacter::CalcClose()
 			WallArrClose.Add(Wall);
 		}
 	}
-	//UE_LOG(LogTemp, Warning, TEXT("Array Size: %d"), WallArrClose.Num());
 
 }
 
